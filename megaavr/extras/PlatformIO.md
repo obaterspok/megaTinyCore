@@ -244,10 +244,17 @@ platform = atmelmegaavr
 board = ATtiny1614
 framework = arduino
 upload_protocol = custom
-upload_command = C:\Users\(your username)\AppData\Local\Arduino15\packages\megaTinyCore\tools\python3\3.7.2-post1/python3 -u C:\Users\(your username)AppData\Local\Arduino15\packages\megaTinyCore\hardware\megaavr\2.4.2/tools/prog.py -t uart -u COM18 -b 460800 -d attiny1614 --fuses 2:0x01 6:0x04 8:0x00 -f$SOURCE -a write
+upload_flags =
+    --tool
+        uart
+    --device
+        $BOARD_MCU
+    --uart
+        YOUR_COM_PORT
+    --clk
+        $UPLOAD_SPEED
+upload_command = pymcuprog write --erase $UPLOAD_FLAGS --filename $SOURCE
 ```
-
-
 
 ### `monitor_port`
 PlatformIO detects serial ports automatically. However, if you want to override this you can uncomment `monitor_port`. Use `/dev/[port]` on Unix compatible systems, and use `COMx` on Windows.
